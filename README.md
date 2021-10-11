@@ -13,7 +13,7 @@ Sections of README document
 5) Technical Notes
 
 ## SECTION 1: Overview
--------------------
+----------------------
 
 MLSS: Multilocus Sequence Search
 
@@ -27,16 +27,17 @@ This program can be used for bacterial species identification when used
 in conjunction with Ribosomal MLST (rMLST).
 
 ## SECTION 2: Installation
------------------------
+--------------------------
 
-2.1 Program Dependencies (External):
+### 2.1 Program Dependencies (External):
 
-2.1.1 METACPAN: Log::Log4perl
+#### 2.1.1 METACPAN: Log::Log4perl
+
 https://metacpan.org/pod/Log::Log4perl
 This module is used by this program for logging purposes.
 Install from METACPAN according to the instructions found on the METACPAN site.
 
-2.1.2 Requires BLAST executable: blastn
+#### 2.1.2 Requires BLAST executable: blastn
 Download the latest BLAST+ software from NCBI BLAST website (https://blast.ncbi.nlm.nih.gov).
 
 Program uses environment variable BLAST_BIN_PATH to find the blast bin directory
@@ -46,7 +47,7 @@ export BLAST_BIN_PATH=<path_to_your_blast_bin_directory>
 ```
 e.g. /usr/bin
 
-2.2 Module Requirements (Internal):
+### 2.2 Module Requirements (Internal):
 
 Modules included with this distribution:
 ```
@@ -67,7 +68,7 @@ JTable.pm
 These modules need to be placed inside a directory called 'lib'
 in the directory where the MLSS.pl program is located.
 
-2.3 Input File and Directory Requirements:
+### 2.3 Input File and Directory Requirements:
 
 See below for detailed file format information.
 ```
@@ -86,9 +87,9 @@ See below for detailed file format information.
 ```
 
 ## SECTION 3: Program Usage
-------------------------
+---------------------------
 
-3.1 Required Options:
+### 3.1 Required Options:
 ```
 -in       <FILE> filename of input list of genome/contig files
 -dir      <DIRECTORY> Genome/contig directory
@@ -100,7 +101,7 @@ See below for detailed file format information.
 -field=rST  ] 
 ```
 
-3.2 Typical Usage:
+### 3.2 Typical Usage:
 
 ```
 rMLST-NI.pl \
@@ -112,12 +113,12 @@ rMLST-NI.pl \
 -out LOGFILE.txt
 ```
 
-3.3 Standard Options:
+### 3.3 Standard Options:
 ```
 -h         - print usage instructions
 -v         - print program version
 ```
-3.4 Advanced Options:
+### 3.4 Advanced Options:
 ```
 --delete   - Delete individual BLAST files [default]
 --nodelete - Do not delete BLAST files
@@ -147,21 +148,20 @@ rMLST-NI.pl \
 --task=megablast ]
 ```
 ## SECTION 4: File Format Information
-----------------------------------
+-------------------------------------
 
-4.1 Input File Format: List of Genome/Contigs Files
----------------------------------------------------
+### 4.1 Input File Format: List of Genome/Contigs Files
 ```
 ISOLATE_1_A0_contigs.fa
 ISOLATE_2_A0_contigs.fa
 ```
 	
-4.2 Input File Format: Genome Files
------------------------------------
+### 4.2 Input File Format: Genome Files
+
 Sequence format = FASTA
 
-4.3 Input File Format: Allele Sequence File
--------------------------------------------
+### 4.3 Input File Format: Allele Sequence File
+
 Sequence format = FASTA
 
 This file must be indexed using makeblastdb.
@@ -169,12 +169,13 @@ COMMAND:
 ```
 makeblastdb -in FASTA_FILE.fa -dbtype nucl
 ```
+
 Must use the same BLAST version of makeblastdb as blastn
 Program checks for 3 blast index files (ending  in .nin, .nsq, .nhr) 
 to ensure that makeblastdb has been run.
 
-4.4 Input File Format: Lengths File (Optional)
-----------------------------------------------
+### 4.4 Input File Format: Lengths File (Optional)
+
 Optional file - NOT supplied on the command line.
 Name must be FASTA_FILENAME.lengths and placed in the same directory as 
 the allele sequence FASTA file (mirroring the BLAST index file naming convention).
@@ -192,8 +193,8 @@ BACT000002_86	726
 BACT000003_63	699
 ```
 
-4.5 Input File Format: Profile Table
-------------------------------------
+### 4.5 Input File Format: Profile Table
+
 Header line to contain (tab separated):
 Minimally requires 'id' OR 'rST' and locus names. Cannot contain duplicate header values.
 Example (truncated after two loci):
@@ -206,8 +207,8 @@ Example (truncated after two loci):
 23	KCTC 2190	Klebsiella aerogenes	3916	2949
 ```
 
-4.6 Input File Format: Thresholds File
---------------------------------------
+### 4.6 Input File Format: Thresholds File
+
 Seven columns (tab separated):
 ```
 Column 1: Profile Identifier (e.g. ISOLATE_1 or RST_1)
@@ -240,14 +241,14 @@ Identity values below threshold A and above threshold B are labelled as Amber.
 Identity values equal to or below threshold B are labelled as Red.
 ```
 	
-4.7 File Format: Loci File (optional)
--------------------------------------
+### 4.7 File Format: Loci File (optional)
+
 Single column file of locus identifiers.
 Overrides the internal list of 53 rMLST locus identifiers.
 Identifiers must not contain spaces.
 
-4.8 Output File Format: 
------------------------
+### 4.8 Output File Format: 
+
 SCAN FILE FORMAT 2.1 (12 columns)
 Tab separated format:
 ```
@@ -282,7 +283,7 @@ Program reports missing BLAST output files to the error file
 ## SECTION 5: Technical Notes
 --------------------------
 
-5.1 PROGRAM STEPS:
+### 5.1 PROGRAM STEPS:
 
 STEP 1. Read input files and perform data sanity checks
 ```
@@ -318,7 +319,7 @@ STEP 6. Rank the PROFILE table entries by nucleotide identity (highest first)
 STEP 7. Repeat steps 2 to 6 for all input QUERY files
 
 
-5.2 IDENTITY CALCULATIONS:
+### 5.2 IDENTITY CALCULATIONS:
 
 Calculate LOCAL Sequence Identity:
 Identity (%) = 100 x ( total identical matches [A] / total of aligned allele lengths [B] )
@@ -335,14 +336,14 @@ in the identity calculation.
 Calculate Nucleotide Overlap:
 Overlap (%) = 100 x ( total of aligned allele lengths [B] / total profile nucleotide length [C] )
 
-5.3 ALLELE MATCH CRITERIA:
+### 5.3 ALLELE MATCH CRITERIA:
 
 BLAST E-value collect and Sequence identity collect both need to be satisfied 
 for the BLAST match to be accepted (defaults E-value=10, Sequence identity=50)
 In addition, each allelic match must pass minimum overlap length and sequence identity 
 criteria to be included in the nucleotide identity calculation (defaults: 50% overlap and 50% identity)
 
-5.4 PROFILE TABLE SOURCE:
+### 5.4 PROFILE TABLE SOURCE:
 
 There are two sources of profiles: ISOLATE database or the SEQDEF database.
 Profile entries generated from Isolate database file using 'id' field are prefixed: 'ISOLATE_'
@@ -352,7 +353,7 @@ and those using 'ST' field are prefixed: 'ST_'
 If required the thresholds file profile identifiers must match the identifier generated internally
 based on 'id' (ISOLATE_), 'rST' (RST_) or 'ST' (ST_)
 
-5.5 TEMPORARY FILENAMES:
+### 5.5 TEMPORARY FILENAMES:
 
 Program creates a '.lock' file for each QUERY file search to prevent any other 
 instance of this program trying to write to the same results filename during the 
@@ -366,8 +367,9 @@ Temporary BLAST tabular output files are created for each BLAST search:
 Filename(s) is a concatenation of the query filename (root part) and the 
 allele sequence library (root part) joined with an underscore and appended by '_BLAST'.
 Two files are generated:
+```
 QUERY_AlleleFasta_BLAST.tmp (unsorted file)
 QUERY_AlleleFasta_BLAST (sorted file)
-
+```
 
 
