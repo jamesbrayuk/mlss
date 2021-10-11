@@ -14,7 +14,7 @@ Sections of README document
 4) File Format Information
 5) Technical Notes
 
-SECTION 1: Overview
+## SECTION 1: Overview
 -------------------
 
 MLSS: Multilocus Sequence Search
@@ -28,7 +28,7 @@ values between the query genome and a library of allelic profiles
 This program can be used for bacterial species identification when used
 in conjunction with Ribosomal MLST (rMLST).
 
-SECTION 2: Installation
+## SECTION 2: Installation
 -----------------------
 
 2.1 Program Dependencies (External):
@@ -51,6 +51,7 @@ e.g. /usr/bin
 2.2 Module Requirements (Internal):
 
 Modules included with this distribution:
+```
 DefaultLoggerConfig.pm
 GetListFromFile.pm
 NumericalChecks.pm
@@ -64,7 +65,7 @@ ScanEntry.pm
 ScanWriter.pm
 JTableReader.pm
 JTable.pm
-
+```
 These modules need to be placed inside a directory called 'lib'
 in the directory where the MLSS.pl program is located.
 
@@ -86,11 +87,11 @@ See below for detailed file format information.
        nucleotide identity.
 
 
-SECTION 3: Program Usage
+## SECTION 3: Program Usage
 ------------------------
 
 3.1 Required Options:
-
+```
 -in       <FILE> filename of input list of genome/contig files
 -dir      <DIRECTORY> Genome/contig directory
 -db       <FILE> Root filename of BLAST indexed sequence database
@@ -99,9 +100,11 @@ SECTION 3: Program Usage
 
 -field=id   ] select one of these profile identifier field options
 -field=rST  ] 
+```
 
 3.2 Typical Usage:
 
+```
 rMLST-NI.pl \
 -in LIST_ContigsFiles.txt \
 -dir ./contigs \
@@ -109,6 +112,7 @@ rMLST-NI.pl \
 -profiles PROFILES.txt \
 -field=id \
 -out LOGFILE.txt
+```
 
 3.3 Standard Options:
 
@@ -144,14 +148,16 @@ rMLST-NI.pl \
 --task=blastn    ] BLASTN '-task [OPTION]' (Default: blastn)
 --task=megablast ]
 
-SECTION 4: File Format Information
+## SECTION 4: File Format Information
 ----------------------------------
 
 4.1 Input File Format: List of Genome/Contigs Files
 ---------------------------------------------------
+```
 ISOLATE_1_A0_contigs.fa
 ISOLATE_2_A0_contigs.fa
-
+```
+	
 4.2 Input File Format: Genome Files
 -----------------------------------
 Sequence format = FASTA
@@ -177,24 +183,30 @@ Column 1: Allele identifier
 Column 2: Allele length
 
 Example:
+```
 BACT000001_3577	1674
 BACT000002_86	726
 BACT000003_63	699
+```
 
 4.5 Input File Format: Profile Table
 ------------------------------------
 Header line to contain (tab separated):
 Minimally requires 'id' OR 'rST' and locus names. Cannot contain duplicate header values.
 Example (truncated after two loci):
+```
 id	isolate	species	BACT000001	BACT000002
-
+```
 Data lines to contain profile id and allele identifiers:
 Example (truncated after two loci):
+```
 23	KCTC 2190	Klebsiella aerogenes	3916	2949
+```
 
 4.6 Input File Format: Thresholds File
 --------------------------------------
 Seven columns (tab separated):
+```
 Column 1: Profile Identifier (e.g. ISOLATE_1 or RST_1)
 Column 2: Threshold A (range 0-100)
 Column 3: Threshold A fraction (number/number, default: 0/0)
@@ -202,24 +214,29 @@ Column 4: Threshold B (range 0-100)
 Column 5: Threshold B fraction (number/number, default: 0/0)
 Column 6: Species (string)
 Column 7: Comments (default: N/A)
+```
 
 If the threshold fraction is present from observed data (ie. is not the default value) 
 the threshold is internally re-calculated from the fraction to avoid using a number 
 that has been rounded up/down in the traffic light colour calculation.
 
 Example line (from observed data):
+```
 ISOLATE_23	98.84958	20622/20862	98.17371	20481/20862	Klebsiella aerogenes	N/A
-
+```
 Example line (generic values):
+```
 ISOLATE_8556	99.95000	0/0	99.75000	0/0	Klebsiella africana	N/A
-
+```
 Traffic Light System (of Identity Significance):
+```
 Threshold A is the lowest observed value (%) of a same species match for this profile.
 Threshold B is the highest observed value (%) of a different species match for this profile.
 Identity values between 100% and threshold A (inclusive) are labelled as Green
 Identity values below threshold A and above threshold B are labelled as Amber.
 Identity values equal to or below threshold B are labelled as Red.
-
+```
+	
 4.7 File Format: Loci File (optional)
 -------------------------------------
 Single column file of locus identifiers.
@@ -230,6 +247,7 @@ Identifiers must not contain spaces.
 -----------------------
 SCAN FILE FORMAT 2.1 (12 columns)
 Tab separated format:
+```
 Column 1: Rank Number
 Column 2: Contigs Filename
 Column 3: Profile Name (string)
@@ -242,12 +260,14 @@ Column 9: Number of Identical Matches / Profile Nucleotide Count
 Column 10: Matched Nucleotide Count / Profile Nucleotide Count
 Column 11: Total Blast Score
 Column 12: Profile Numeric Identifier
+```
 
 Example:
+```
 1	ISOLATE_23_A0_contigs.fa	ISOLATE_23	100.00000	Klebsiella aerogenes	Green	100.00000	51/51	20862/20862	20862/20862	20862	23
 2	ISOLATE_23_A0_contigs.fa	ISOLATE_331	98.14016	Klebsiella variicola	Red	99.99041	51/51	20474/20862	20860/20862	19687	331
 3	ISOLATE_23_A0_contigs.fa	ISOLATE_3288	97.58412	Klebsiella quasivariicola	Red	99.98083	51/51	20358/20862	20858/20862	19340	3288
-
+```
 Output filename for each query:
 Root of the input genome filename (before the dot) appended with '_RESULTS'.
 Example: 'ISOLATE_23_A0_contigs.fa' produces a results file named 'ISOLATE_23_A0_contigs_RESULTS'
@@ -256,7 +276,7 @@ Output Error File:
 Program reports missing BLAST output files to the error file
 
 
-SECTION 5: Technical Notes
+## SECTION 5: Technical Notes
 --------------------------
 
 5.1 PROGRAM STEPS:
