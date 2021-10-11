@@ -1,10 +1,8 @@
-# mlss
+# MLSS.pl
 Multilocus Sequence Search
 
-
-
-Program: MLSS.pl
 Written by James Bray (james.bray@zoo.ox.ac.uk)
+
 Copyright (C) 2021 University of Oxford
 
 Sections of README document
@@ -39,13 +37,13 @@ This module is used by this program for logging purposes.
 Install from METACPAN according to the instructions found on the METACPAN site.
 
 2.1.2 Requires BLAST executable: blastn
-Download the latest BLAST+ software from NCBI BLAST website 
-(https://blast.ncbi.nlm.nih.gov).
+Download the latest BLAST+ software from NCBI BLAST website (https://blast.ncbi.nlm.nih.gov).
 
 Program uses environment variable BLAST_BIN_PATH to find the blast bin directory
 Set this in your shell environment prior to running.
-
+```
 export BLAST_BIN_PATH=<path_to_your_blast_bin_directory>
+```
 e.g. /usr/bin
 
 2.2 Module Requirements (Internal):
@@ -72,7 +70,7 @@ in the directory where the MLSS.pl program is located.
 2.3 Input File and Directory Requirements:
 
 See below for detailed file format information.
-
+```
 - A list of genomic sequence filenames
 - Name of the directory where the genomic sequence files are stored (warehouse directory)
 - A single FASTA file of allele sequences.
@@ -85,7 +83,7 @@ See below for detailed file format information.
 - (Optional) A single THRESHOLDS file. Profile identity thresholds for all profile entries in PROFILE file
        Used for calculating traffic light colour for reporting the significance of each reported 
        nucleotide identity.
-
+```
 
 ## SECTION 3: Program Usage
 ------------------------
@@ -115,12 +113,12 @@ rMLST-NI.pl \
 ```
 
 3.3 Standard Options:
-
+```
 -h         - print usage instructions
 -v         - print program version
-
+```
 3.4 Advanced Options:
-
+```
 --delete   - Delete individual BLAST files [default]
 --nodelete - Do not delete BLAST files
 
@@ -147,7 +145,7 @@ rMLST-NI.pl \
 
 --task=blastn    ] BLASTN '-task [OPTION]' (Default: blastn)
 --task=megablast ]
-
+```
 ## SECTION 4: File Format Information
 ----------------------------------
 
@@ -167,7 +165,10 @@ Sequence format = FASTA
 Sequence format = FASTA
 
 This file must be indexed using makeblastdb.
-COMMAND: makeblastdb -in FASTA_FILE.fa -dbtype nucl
+COMMAND: 
+```
+makeblastdb -in FASTA_FILE.fa -dbtype nucl
+```
 Must use the same BLAST version of makeblastdb as blastn
 Program checks for 3 blast index files (ending  in .nin, .nsq, .nhr) 
 to ensure that makeblastdb has been run.
@@ -179,8 +180,10 @@ Name must be FASTA_FILENAME.lengths and placed in the same directory as
 the allele sequence FASTA file (mirroring the BLAST index file naming convention).
 
 Two column format (tab separated)
+```
 Column 1: Allele identifier
 Column 2: Allele length
+```
 
 Example:
 ```
@@ -282,21 +285,22 @@ Program reports missing BLAST output files to the error file
 5.1 PROGRAM STEPS:
 
 STEP 1. Read input files and perform data sanity checks
-	A. list of input QUERY genomic sequence filenames
-	B. Read directory where these files are stored (WAREHOUSE)
-	C. ALLELE FASTA sequence library
-	D. PROFILE table file
-	E. (optional) ALLELE LENGTHS file
-	F. (optional) Profile THRESHOLDS file
+```
+A. list of input QUERY genomic sequence filenames
+B. Read directory where these files are stored (WAREHOUSE)
+C. ALLELE FASTA sequence library
+D. PROFILE table file
+E. (optional) ALLELE LENGTHS file
+F. (optional) Profile THRESHOLDS file
 
-	Obtain additional information:
-	- If ALLELE LENGTHS not provided: read ALLELE FASTA file to obtain length information
+Obtain additional information:
+- If ALLELE LENGTHS not provided: read ALLELE FASTA file to obtain length information
 
-	Data sanity checks
-	- Check all input genomic sequences exist in the warehouse directory
-	- If ALLELE LENGTHS provided: check all allele sequences in ALLELE FASTA file are present 
-	- If THRESHOLDS file provided: check all profile identifiers in PROFILE file are present 
-
+Data sanity checks
+- Check all input genomic sequences exist in the warehouse directory
+- If ALLELE LENGTHS provided: check all allele sequences in ALLELE FASTA file are present 
+- If THRESHOLDS file provided: check all profile identifiers in PROFILE file are present 
+```
 STEP 2. Scan QUERY sequence again ALLELE FASTA sequence library
       Results are output to a tabular format file.
 
