@@ -104,7 +104,7 @@ See below for detailed file format information.
 ### 3.2 Typical Usage:
 
 ```
-rMLST-NI.pl \
+MLSS.pl \
 -in LIST_ContigsFiles.txt \
 -dir ./contigs \
 -db SEQS_Alleles.fa  \
