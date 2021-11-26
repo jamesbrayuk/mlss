@@ -1005,6 +1005,8 @@ Advanced Options (double dash):
 --first [INTEGER]  first entry in input list of query sequence files to process
 --last [INTEGER]  last entry in input list of query sequence files to process
 
+--thresholds <FILE> Thresholds file corresponding with Profiles file
+
 Required Options (single dash):
 -in       <FILE> filename of input list of genome/contig files
 -dir      <DIRECTORY> Genome/contig directory
