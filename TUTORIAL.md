@@ -54,7 +54,7 @@ echo GCA_000534255.1_Ente_aero_UCI_27_V1_genomic.fna > LIST_InputFilenames
 
 Command:
 ```
-$PERL_DIR/MLSS.pl \
+perl $PERL_DIR/MLSS.pl \
 -in LIST_InputFilenames \
 -dir $PERL_DIR/example_genomes  \
 -profiles $PERL_DIR/example_data/DATASET_KlebsiellaDB_17TypeStrains.txt \
