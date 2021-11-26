@@ -1002,6 +1002,8 @@ Advanced Options (double dash):
 --task=blastn    ] BLASTN '-task [OPTION]' (Default: blastn)
 --task=megablast ]
 
+--word_size [INTEGER] BLASTN word size (Default: 30)
+
 --first [INTEGER]  first entry in input list of query sequence files to process
 --last [INTEGER]  last entry in input list of query sequence files to process
 
