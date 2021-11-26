@@ -25,7 +25,7 @@ GCA_000534255.1_Ente_aero_UCI_27_V1_genomic.fna
 
 ```
 setenv BLAST_BIN_PATH [path_to_your_blast_bin_directory]
-setenv PERL_DIR  [path_to_your_perl_directory] e.g. /home/<username>/perl  
+setenv PERL_DIR  [path_to_your_perl_directory] e.g. /home/<username>/perl
 ```
 
 This example was run using BLAST executables from NCBI for ncbi-blast-2.12.0+.
