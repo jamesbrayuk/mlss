@@ -1,7 +1,7 @@
 # MLSS.pl
 Multilocus Sequence Search
 
-Written by James Bray (james.bray@zoo.ox.ac.uk)
+Written by James Bray (james.bray@biology.ox.ac.uk)
 
 Copyright (C) 2021 University of Oxford
 
